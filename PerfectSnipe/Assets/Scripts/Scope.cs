@@ -5,10 +5,14 @@ using UnityEngine;
 public class Scope : MonoBehaviour
 {
     private Animator animator;
+
+    public Camera mainCamera;
     public GameObject weaponCamera;
 
     public GameObject imgScope;
 
+    private float scopedInFOV = 15f;
+    private float defaultFOV = 60f;
     private float scopedTime = .15f;
     private bool isScopeOut = true;
     private void Start()
@@ -38,12 +42,14 @@ public class Scope : MonoBehaviour
     public IEnumerator ScopeIn()
     {
         yield return new WaitForSeconds(scopedTime);
+        mainCamera.fieldOfView = scopedInFOV;
         imgScope.SetActive(true);
         weaponCamera.SetActive(false);
     }
 
     public void ScopeOut()
     {
+        mainCamera.fieldOfView = defaultFOV;
         imgScope.SetActive(false);
         weaponCamera.SetActive(true);
     }
