@@ -8,6 +8,7 @@ public class AppDelegate
     public static AppDelegate Instance = null;
 
     public int levelCounter = 0;
+    public int tempLevelCounter = 0;
 
     public static AppDelegate SharedManager()
     {

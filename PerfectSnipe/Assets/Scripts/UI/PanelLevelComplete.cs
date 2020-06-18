@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 public class PanelLevelComplete : MonoBehaviour
 {
-    public TextMeshProUGUI txtLevelComplete;
+    public TextMeshProUGUI txtLevel;
     public TextMeshProUGUI txtReward;
     public Button btnNoThanks;
 
@@ -14,15 +14,26 @@ public class PanelLevelComplete : MonoBehaviour
     private void Start()
     {
         level = LevelManager.Instance.GetLevelInfo(AppDelegate.SharedManager().levelCounter);
-        txtLevelComplete.text = "Level " + level.levelNo + " Complete";
-        txtReward.text = "Reward " + level.rewardAmount;
+        txtLevel.text = (AppDelegate.SharedManager().tempLevelCounter + 1).ToString();
+        txtReward.text = level.rewardAmount.ToString();
+        int resAmount = !PlayerPrefs.HasKey("Resource") ? 0 : PlayerPrefs.GetInt("Resource");
+        PlayerPrefs.SetInt("Resource", resAmount + level.rewardAmount);
         btnNoThanks.onClick.AddListener(() => NoThanksCallBack());
+
+        UiManager.Instance.PlayFx(true);
     }
 
     private void NoThanksCallBack()
     {
+        UiManager.Instance.PlayFx(false);
         UiManager.Instance.LoadMainPanel();
-        AppDelegate.SharedManager().levelCounter += 1;
+        if (AppDelegate.SharedManager().levelCounter + 1 > 4)
+        {
+            AppDelegate.SharedManager().levelCounter = UnityEngine.Random.Range(0, 5);
+        }
+        else
+            AppDelegate.SharedManager().levelCounter += 1;
+        AppDelegate.SharedManager().tempLevelCounter += 1;
 
         Destroy(this.gameObject);
     }

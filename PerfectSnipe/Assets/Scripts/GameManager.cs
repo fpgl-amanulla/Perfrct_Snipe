@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     AppDelegate appDelegate;
     public GameObject weaponHolder;
     public bool isLevelComplete = false;
+
     void Start()
     {
         if (Instance == null) Instance = this;

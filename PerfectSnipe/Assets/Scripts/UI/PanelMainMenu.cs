@@ -8,13 +8,15 @@ using System;
 public class PanelMainMenu : MonoBehaviour
 {
     public TextMeshProUGUI txtLevelNo;
+    public TextMeshProUGUI txtResAmount;
     public Button btnPlay;
     LevelManager levelManager;
 
     void Start()
     {
         levelManager = LevelManager.Instance;
-        txtLevelNo.text = "Level " + (AppDelegate.SharedManager().levelCounter + 1).ToString();
+        UpdateResourceBar();
+        txtLevelNo.text = "Level " + (AppDelegate.SharedManager().tempLevelCounter + 1).ToString();
         btnPlay.onClick.AddListener(() => PlayCallBack());
     }
 
@@ -26,6 +28,12 @@ public class PanelMainMenu : MonoBehaviour
         UiManager.Instance.tapToAim.SetActive(true);
         UiManager.Instance.InitGamePanel();
         Destroy(this.gameObject);
+    }
+
+    public void UpdateResourceBar()
+    {
+        int resAmount = !PlayerPrefs.HasKey("Resource") ? 0 : PlayerPrefs.GetInt("Resource");
+        txtResAmount.text = resAmount.ToString();
     }
 
 }
