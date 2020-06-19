@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Video;
 
 public class SoundManager : MonoBehaviour
 {
@@ -12,7 +11,7 @@ public class SoundManager : MonoBehaviour
     public AudioClip shoot;
     public AudioClip explotion;
 
-    private void Start()
+    private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
         if (Instance == null) Instance = this;

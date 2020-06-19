@@ -12,6 +12,7 @@ public class PanelMainMenu : MonoBehaviour
     public Button btnPlay;
     LevelManager levelManager;
 
+
     void Start()
     {
         levelManager = LevelManager.Instance;

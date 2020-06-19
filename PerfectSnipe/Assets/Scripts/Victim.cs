@@ -25,4 +25,13 @@ public class Victim : MonoBehaviour
         sequence.Append(transform.DOLocalMove(endPosition, durationTime))
             .Append(transform.DOLocalMove(startPosition, durationTime)).SetLoops(-1);
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.collider.CompareTag("Slayer"))
+        {
+            this.GetComponent<Renderer>().material.color = Color.gray;
+            Destroy(collision.gameObject);
+        }
+    }
 }

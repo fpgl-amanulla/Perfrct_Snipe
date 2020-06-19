@@ -5,11 +5,14 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-    AppDelegate appDelegate;
+
+
     public GameObject weaponHolder;
     public bool isLevelComplete = false;
 
-    void Start()
+    private AppDelegate appDelegate;
+
+    void Awake()
     {
         if (Instance == null) Instance = this;
         appDelegate = AppDelegate.SharedManager();

@@ -15,16 +15,17 @@ public class LevelManager : MonoBehaviour
 {
     public static LevelManager Instance;
 
+    public int levelToLoad = 0;
     public GameObject environment;
     public List<Level> levelList = new List<Level>();
 
     private GameObject level;
 
-    private void Start()
+    private void Awake()
     {
         if (Instance == null) Instance = this;
 
-        LoadLevel(0);
+        LoadLevel(levelToLoad);
     }
 
     public void LoadLevel(int levelNo) => level = Instantiate(levelList[levelNo].levelPrefab, environment.transform);

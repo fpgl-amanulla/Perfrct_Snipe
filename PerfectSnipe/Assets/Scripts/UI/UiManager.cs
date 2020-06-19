@@ -2,12 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using System;
-using UnityEngine.Video;
 
 public class UiManager : MonoBehaviour
 {
-    public static UiManager Instance;
+    public static UiManager Instance = null;
 
     public Camera uiCamera;
     public GameObject tapToAim;
@@ -16,19 +14,10 @@ public class UiManager : MonoBehaviour
     public GameObject popUpText;
     public TextMeshProUGUI txtLevelNo;
 
-    [Header("Confetti FX")]
-    public ParticleSystem confettifx01;
-    public ParticleSystem confettifx02;
-
-    void Start()
+    public void Awake()
     {
         if (Instance == null) Instance = this;
         InitGamePanel();
-    }
-
-    void Update()
-    {
-
     }
     public void ShowPopUptext()
     {
@@ -64,19 +53,15 @@ public class UiManager : MonoBehaviour
             this.GetComponent<Canvas>().renderMode = RenderMode.ScreenSpaceCamera;
             uiCamera.gameObject.SetActive(true);
             this.GetComponent<Canvas>().worldCamera = uiCamera;
-            confettifx01.gameObject.SetActive(true);
-            confettifx02.gameObject.SetActive(true);
-            confettifx01.Play();
-            confettifx02.Play();
+            FxManager.Instance.ConfettiSetActive(true);
+            FxManager.Instance.PlayConfettiFx(true);
         }
         else
         {
             this.GetComponent<Canvas>().renderMode = RenderMode.ScreenSpaceOverlay;
             uiCamera.gameObject.SetActive(false);
-            confettifx01.Pause();
-            confettifx02.Pause();
-            confettifx01.gameObject.SetActive(false);
-            confettifx02.gameObject.SetActive(false);
+            FxManager.Instance.ConfettiSetActive(false);
+            FxManager.Instance.PlayConfettiFx(false);
         }
     }
 }
