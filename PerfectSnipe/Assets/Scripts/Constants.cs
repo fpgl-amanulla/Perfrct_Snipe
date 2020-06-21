@@ -16,6 +16,12 @@ public enum BulletType
     WithCamera
 }
 
+public enum VictimType
+{
+   Normal,
+   Boss
+}
+
 public static class Constants
 {
     

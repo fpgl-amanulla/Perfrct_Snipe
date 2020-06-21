@@ -8,6 +8,7 @@ public class Level
     public int levelNo;
     public int totalVictim;
     public int rewardAmount;
+    public int boosHealth = 0;
     public GameObject levelPrefab;
 }
 

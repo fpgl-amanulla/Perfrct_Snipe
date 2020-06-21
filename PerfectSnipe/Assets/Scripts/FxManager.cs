@@ -9,6 +9,7 @@ public class FxManager : MonoBehaviour
 
     [Header("FX")]
     public GameObject bulletImpactFX;
+    public GameObject bulletImpactFXDefault;
     public GameObject explosiveImpactFX;
 
     [Header("Confetti FX")]

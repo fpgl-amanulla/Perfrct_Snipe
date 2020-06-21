@@ -20,7 +20,7 @@ public class WeaponController : MonoBehaviour
     [Header("Values")]
     [SerializeField] private float impactForce = 20;
     [SerializeField] private float explosionForce = 300f;
-    [SerializeField] private float scopedInFOV = 25f;
+    [SerializeField] private float scopedInFOV = 20f;
     [SerializeField] private float defaultFOV = 60f;
     [Tooltip("Time to scoped in")]
     [SerializeField] private float scopedTime = 0.15f;
@@ -103,6 +103,7 @@ public class WeaponController : MonoBehaviour
             {
                 shootType = ShootType.Victim;
                 hit.transform.GetComponent<Victim>().sequence.Pause();
+                hit.transform.GetComponent<Victim>().victimAnim.enabled = false;
                 SpawnBullet();
                 int val = UnityEngine.Random.Range(0, 100);
                 bulletType = val % 2 == 0 ? BulletType.Normal : BulletType.WithCamera;
@@ -132,6 +133,7 @@ public class WeaponController : MonoBehaviour
             }
             else
             {
+                Instantiate(FxManager.Instance.bulletImpactFXDefault, hit.point, Quaternion.LookRotation(hit.normal));
                 shoot = false;
                 ScopeOut();
             }
@@ -164,9 +166,9 @@ public class WeaponController : MonoBehaviour
                     hit.transform.gameObject.AddComponent(typeof(Rigidbody));
                 }
                 hit.collider.tag = "Untagged";
-                hit.transform.GetComponent<Renderer>().material.color = Color.gray;
+                hit.transform.GetChild(0).GetChild(0).GetComponent<SkinnedMeshRenderer>().material.color = Color.grey;
                 hit.rigidbody.AddRelativeForce(-hit.normal * impactForce);
-                AddScore(1);
+                Score.SharedManager().AddScore(1);
                 break;
             case ShootType.Destroyable:
                 Destroy(hit.transform.gameObject);
@@ -188,11 +190,15 @@ public class WeaponController : MonoBehaviour
                             rb.AddExplosionForce(explosionForce, hit.point, 50);
                             if (item.gameObject.CompareTag("Victim"))
                             {
-                                AddScore(1);
+                                Score.SharedManager().AddScore(1);
                                 item.transform.GetComponent<Victim>().sequence.Pause();
-                                item.transform.GetComponent<Renderer>().material.color = Color.grey;
+                                item.transform.GetChild(0).GetChild(0).GetComponent<SkinnedMeshRenderer>().material.color = Color.grey;
                                 StartCoroutine(WaitToDestroy(item.gameObject, .5f));
                             }
+                        }
+                        if (item.gameObject.CompareTag("Explosive"))
+                        {
+                            Destroy(item.gameObject);
                         }
                     }
                 }
@@ -203,6 +209,7 @@ public class WeaponController : MonoBehaviour
                 break;
 
             default:
+
                 break;
         }
 
@@ -236,28 +243,6 @@ public class WeaponController : MonoBehaviour
     {
         yield return new WaitForSeconds(time);
         Destroy(go);
-    }
-
-    public void AddScore(int _score)
-    {
-        score += _score;
-        //Debug.Log("Score " + score);
-        int currentLevel = AppDelegate.SharedManager().levelCounter;
-        if (score >= LevelManager.Instance.GetLevelInfo(currentLevel).totalVictim)
-        {
-            score = 0;
-            GameManager.Instance.isLevelComplete = true;
-            StartCoroutine(WaitToLoadLevelComplete());
-        }
-
-    }
-
-    IEnumerator WaitToLoadLevelComplete()
-    {
-        yield return new WaitForSeconds(2.0f);
-        UiManager.Instance.LoadLevelComplete();
-        LevelManager.Instance.DestroyLevel();
-        GameManager.Instance.weaponHolder.SetActive(false);
     }
 
     public IEnumerator ScopeIn()

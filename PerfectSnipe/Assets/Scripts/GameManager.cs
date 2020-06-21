@@ -17,4 +17,26 @@ public class GameManager : MonoBehaviour
         if (Instance == null) Instance = this;
         appDelegate = AppDelegate.SharedManager();
     }
+
+    public void CheckLevelComplete()
+    {
+        //Debug.Log("Score " + score);
+        int currentLevel = AppDelegate.SharedManager().levelCounter;
+        int score = Score.SharedManager().GetCurrentScore();
+        if (score >= LevelManager.Instance.GetLevelInfo(currentLevel).totalVictim)
+        {
+            Score.SharedManager().ResetScore();
+            isLevelComplete = true;
+            StartCoroutine(WaitToLoadLevelComplete());
+        }
+
+    }
+
+    IEnumerator WaitToLoadLevelComplete()
+    {
+        yield return new WaitForSeconds(2.0f);
+        UiManager.Instance.LoadLevelComplete();
+        LevelManager.Instance.DestroyLevel();
+        weaponHolder.SetActive(false);
+    }
 }

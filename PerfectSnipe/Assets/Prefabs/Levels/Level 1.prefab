@@ -44,6 +44,31 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5922506843998905654}
     m_Modifications:
+    - target: {fileID: 543450653229082474, guid: b7184ef2eb44f304299b06dad1ed7f40,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 543450653229082474, guid: b7184ef2eb44f304299b06dad1ed7f40,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 543450653229082474, guid: b7184ef2eb44f304299b06dad1ed7f40,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 543450653229082474, guid: b7184ef2eb44f304299b06dad1ed7f40,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 543450653229082474, guid: b7184ef2eb44f304299b06dad1ed7f40,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7739882148664414688, guid: b7184ef2eb44f304299b06dad1ed7f40,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -103,6 +128,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Victim
+      objectReference: {fileID: 0}
+    - target: {fileID: 7739882148664414715, guid: b7184ef2eb44f304299b06dad1ed7f40,
+        type: 3}
+      propertyPath: durationTime
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7739882148664414715, guid: b7184ef2eb44f304299b06dad1ed7f40,
+        type: 3}
+      propertyPath: endPosition.z
+      value: 6.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7739882148664414715, guid: b7184ef2eb44f304299b06dad1ed7f40,
+        type: 3}
+      propertyPath: startAnimate
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7739882148664414715, guid: b7184ef2eb44f304299b06dad1ed7f40,
+        type: 3}
+      propertyPath: startWalk
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7739882148664414715, guid: b7184ef2eb44f304299b06dad1ed7f40,
+        type: 3}
+      propertyPath: type
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b7184ef2eb44f304299b06dad1ed7f40, type: 3}
