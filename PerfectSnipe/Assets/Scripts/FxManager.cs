@@ -7,6 +7,8 @@ public class FxManager : MonoBehaviour
 {
     public static FxManager Instance;
 
+    public GameObject crackCube;
+
     [Header("FX")]
     public GameObject bulletImpactFX;
     public GameObject bulletImpactFXDefault;

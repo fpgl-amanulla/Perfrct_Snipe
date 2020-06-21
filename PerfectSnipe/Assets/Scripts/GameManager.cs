@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
 
 
     public GameObject weaponHolder;
+    public GameObject mainCamera;
     public bool isLevelComplete = false;
 
     private AppDelegate appDelegate;
@@ -25,7 +26,6 @@ public class GameManager : MonoBehaviour
         int score = Score.SharedManager().GetCurrentScore();
         if (score >= LevelManager.Instance.GetLevelInfo(currentLevel).totalVictim)
         {
-            Score.SharedManager().ResetScore();
             isLevelComplete = true;
             StartCoroutine(WaitToLoadLevelComplete());
         }

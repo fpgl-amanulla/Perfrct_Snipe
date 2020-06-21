@@ -15,6 +15,7 @@ public class Victim : MonoBehaviour
     public bool startDance;
 
     public Sequence sequence { get; private set; }
+    private bool isDied = false;
 
     private void Start()
     {
@@ -40,10 +41,17 @@ public class Victim : MonoBehaviour
     {
         if (collision.collider.CompareTag("Slayer"))
         {
-            this.GetComponent<Renderer>().material.color = Color.gray;
-            Score.SharedManager().AddScore(1);
-            GameManager.Instance.CheckLevelComplete();
-            Destroy(collision.gameObject);
+            if (!isDied)
+            {
+                isDied = true;
+                this.transform.GetChild(0).GetChild(0).GetComponent<Renderer>().material.color = Color.gray;
+                if (this.GetComponent<Rigidbody>() == null)
+                    this.gameObject.AddComponent<Rigidbody>();
+                this.GetComponent<Rigidbody>().AddForce(collision.transform.forward * 10);
+                victimAnim.enabled = false;
+                Score.SharedManager().AddScore(1);
+                //Destroy(collision.gameObject);
+            }
         }
     }
 }

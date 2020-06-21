@@ -25,7 +25,7 @@ public class LevelManager : MonoBehaviour
     private void Awake()
     {
         if (Instance == null) Instance = this;
-
+        AppDelegate.SharedManager().levelCounter = levelToLoad;
         LoadLevel(levelToLoad);
     }
 

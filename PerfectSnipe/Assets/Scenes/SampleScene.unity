@@ -4945,32 +4945,44 @@ MonoBehaviour:
   - levelNo: 1
     totalVictim: 1
     rewardAmount: 50
+    boosHealth: 0
     levelPrefab: {fileID: 5922506843998905649, guid: 07b9e165a7e9980499089e9b53b39c07,
       type: 3}
   - levelNo: 2
     totalVictim: 2
     rewardAmount: 70
+    boosHealth: 0
     levelPrefab: {fileID: 3907619573368772720, guid: be15d640a8848704b909797da81d7ec3,
       type: 3}
   - levelNo: 3
     totalVictim: 3
     rewardAmount: 90
+    boosHealth: 0
     levelPrefab: {fileID: 6147789783998805407, guid: d8d9c8ae21e7e2f45b7af57714b2874b,
       type: 3}
   - levelNo: 4
     totalVictim: 3
     rewardAmount: 100
+    boosHealth: 0
     levelPrefab: {fileID: 6904388713452865174, guid: 313c80d0197b4eb4c931d753e9fbe8c9,
       type: 3}
   - levelNo: 5
-    totalVictim: 4
+    totalVictim: 5
     rewardAmount: 120
+    boosHealth: 0
     levelPrefab: {fileID: 2430355708906928022, guid: 32d63cd896e8d1c42822161bbd1524ed,
       type: 3}
-  - levelNo: 5
+  - levelNo: 6
+    totalVictim: 2
+    rewardAmount: 130
+    boosHealth: 0
+    levelPrefab: {fileID: 6147789783998805407, guid: f1132659d44dab64c8e4b312799f547d,
+      type: 3}
+  - levelNo: 7
     totalVictim: 2
     rewardAmount: 140
-    levelPrefab: {fileID: 6147789783998805407, guid: f1132659d44dab64c8e4b312799f547d,
+    boosHealth: 0
+    levelPrefab: {fileID: 6147789783998805407, guid: 1449c0e408ba1324fb8a60755a54dae2,
       type: 3}
 --- !u!4 &203246465
 Transform:
@@ -9945,7 +9957,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 553872492}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 3.95, z: 13.84}
+  m_LocalPosition: {x: 0, y: -1.67, z: 13.84}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 0}
@@ -29612,10 +29624,10 @@ MonoBehaviour:
   m_enableVertexGradient: 1
   m_colorMode: 3
   m_fontColorGradient:
-    topLeft: {r: 0.8773585, g: 0.8737627, b: 0, a: 1}
-    topRight: {r: 1, g: 0.77890927, b: 0.23113209, a: 1}
-    bottomLeft: {r: 0.990566, g: 0.7795765, b: 0.31305623, a: 1}
-    bottomRight: {r: 0.9716981, g: 0.71161073, b: 0.33459416, a: 1}
+    topLeft: {r: 1, g: 0.8135679, b: 0, a: 1}
+    topRight: {r: 1, g: 0.5917661, b: 0, a: 1}
+    bottomLeft: {r: 0.9622642, g: 0.4321151, b: 0, a: 1}
+    bottomRight: {r: 0.9150943, g: 0.06683165, b: 0, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
@@ -34480,6 +34492,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponHolder: {fileID: 919132149614968408}
+  mainCamera: {fileID: 963194225}
   isLevelComplete: 0
 --- !u!1 &1626588817
 GameObject:
@@ -43866,6 +43879,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8d1f01a27388da4e934dcecb7153d1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  crackCube: {fileID: 1702486976959291958, guid: 3e9b0634850b5b9469518fefbca106a3,
+    type: 3}
   bulletImpactFX: {fileID: 1040608886635896, guid: a97415c6b57076f41a6621a7b51d63a3,
     type: 3}
   bulletImpactFXDefault: {fileID: 100004, guid: f95ff734540a0d749be6571b6cb5b37f,
@@ -48746,11 +48761,11 @@ RectTransform:
   m_Father: {fileID: 401530231}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 406}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: -135}
   m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0.5, y: 1}
 --- !u!95 &2142136393
 Animator:
   serializedVersion: 3

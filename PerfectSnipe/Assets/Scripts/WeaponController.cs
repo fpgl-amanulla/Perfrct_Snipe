@@ -29,7 +29,7 @@ public class WeaponController : MonoBehaviour
 
     private bool isAimTxtActive = true;
     private bool isScopeOut = true;
-    private bool shoot = false;
+    //private bool shoot = false;
 
     private RaycastHit hit;
     private ShootType shootType;
@@ -77,7 +77,7 @@ public class WeaponController : MonoBehaviour
         {
             if (Input.GetMouseButtonUp(0))
             {
-                shoot = true;
+                //shoot = true;
                 Shoot();
             }
         }
@@ -115,7 +115,7 @@ public class WeaponController : MonoBehaviour
                     Vector3 camPos = new Vector3(0, 0, -1.5f);
                     sequence = DOTween.Sequence();
                     sequence.AppendInterval(.1f).Append(mainCamera.transform.DOMove(hit.point + camPos, .4f));
-                    Time.timeScale = .6f;
+                    Time.timeScale = .4f;
                 }
             }
             else if (hit.collider.CompareTag("Destroyable"))
@@ -134,13 +134,13 @@ public class WeaponController : MonoBehaviour
             else
             {
                 Instantiate(FxManager.Instance.bulletImpactFXDefault, hit.point, Quaternion.LookRotation(hit.normal));
-                shoot = false;
+                //shoot = false;
                 ScopeOut();
             }
         }
         else
         {
-            shoot = false;
+            //shoot = false;
             ScopeOut();
         }
     }
@@ -172,6 +172,15 @@ public class WeaponController : MonoBehaviour
                 break;
             case ShootType.Destroyable:
                 Destroy(hit.transform.gameObject);
+                GameObject g = Instantiate(FxManager.Instance.crackCube, hit.transform.gameObject.transform.position, Quaternion.identity);
+                Transform[] allPiece = g.transform.GetComponentsInChildren<Transform>();
+                foreach (var item in allPiece)
+                {
+                    if (item.GetComponent<Rigidbody>() == null)
+                        item.gameObject.AddComponent(typeof(Rigidbody));
+                    item.GetComponent<Rigidbody>().AddExplosionForce(50, item.transform.position, 3);
+                    StartCoroutine(WaitToDestroy(item.gameObject, 3f));
+                }
                 break;
             case ShootType.Explosive:
 
@@ -193,6 +202,7 @@ public class WeaponController : MonoBehaviour
                                 Score.SharedManager().AddScore(1);
                                 item.transform.GetComponent<Victim>().sequence.Pause();
                                 item.transform.GetChild(0).GetChild(0).GetComponent<SkinnedMeshRenderer>().material.color = Color.grey;
+                                item.transform.gameObject.tag = "Untagged";
                                 StartCoroutine(WaitToDestroy(item.gameObject, .5f));
                             }
                         }
@@ -217,7 +227,7 @@ public class WeaponController : MonoBehaviour
         {
             case BulletType.Normal:
                 sequence.Kill();
-                shoot = false;
+                //shoot = false;
                 ScopeOut();
                 break;
             case BulletType.WithCamera:
@@ -235,7 +245,7 @@ public class WeaponController : MonoBehaviour
         sequence.Kill();
         Time.timeScale = 1.0f;
         mainCamera.transform.DOLocalMove(new Vector3(0, 0, 0), 0f);
-        shoot = false;
+        //shoot = false;
         ScopeOut();
     }
 

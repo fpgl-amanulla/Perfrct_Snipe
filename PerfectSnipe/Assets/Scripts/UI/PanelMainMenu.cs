@@ -25,6 +25,7 @@ public class PanelMainMenu : MonoBehaviour
     {
         GameManager.Instance.weaponHolder.SetActive(true);
         GameManager.Instance.isLevelComplete = false;
+        Score.SharedManager().ResetScore();
         levelManager.LoadLevel(AppDelegate.SharedManager().levelCounter);
         UiManager.Instance.tapToAim.SetActive(true);
         UiManager.Instance.InitGamePanel();
