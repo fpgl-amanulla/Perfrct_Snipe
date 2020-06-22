@@ -20,11 +20,29 @@ public class Victim : MonoBehaviour
     public bool startWalk;
     public bool startDance;
 
+
+    public Transform visual;
+
     public Sequence sequence { get; private set; }
+
     private bool isDied = false;
+    private Vector3 currentDirection = Vector3.forward;
+    private Vector3 deviation;
+    private Vector3 moveDirection = Vector3.forward;
+    private WaitForSeconds pointDelay;
+    [SerializeField] private float speed = .1f;
+    [SerializeField] private float maxDragDistance = 40f;
+    [SerializeField] private float MaxRadius;
+    [SerializeField] private float MinRadius;
+    [SerializeField] private float movementSmoothing;
+    [SerializeField] private float rotationSmoothing;
+    private Vector3 initaiPos;
 
     private void Start()
     {
+        initaiPos = this.transform.position;
+        StartCoroutine(GeneratePointRoutine());
+
         if (startWalk)
             StartMove();
         else
@@ -33,14 +51,14 @@ public class Victim : MonoBehaviour
                 victimAnim.SetBool("StartDance", true);
         }
 
-        if(victimType == VictimType.Boss)
+        if (victimType == VictimType.Boss)
         {
             Score.SharedManager().SetScore(bossHealth);
             imgFill.maxValue = bossHealth;
             imgFill.value = bossHealth;
-        }    
+        }
     }
-
+    #region PerfectSnipe
     private void StartMove()
     {
         victimAnim.SetBool("StartWalk", true);
@@ -72,4 +90,46 @@ public class Victim : MonoBehaviour
     {
         imgFill.value = Score.SharedManager().GetCurrentScore();
     }
+    #endregion
+
+    private void Update()
+    {
+        HandleVictimMovement();
+    }
+
+    private void HandleVictimMovement()
+    {
+        currentDirection = Vector3.zero;
+        currentDirection = new Vector3(Mathf.Lerp(currentDirection.x, moveDirection.x, movementSmoothing), 0f, Mathf.Lerp(currentDirection.y, moveDirection.y, movementSmoothing));
+        deviation = currentDirection * speed * maxDragDistance * Time.deltaTime;
+        transform.position += deviation;
+        visual.rotation = Quaternion.Slerp(visual.rotation, Quaternion.LookRotation(currentDirection) * Quaternion.Euler(new Vector3(0, 360, 0)), rotationSmoothing);
+        //transform.SetPositionAndRotation(transform.position + deviation, transform.rotation);
+        //playerRigidbody.MovePosition(playerRigidbody.position + (deviation * 2f));
+    }
+
+    IEnumerator GeneratePointRoutine()
+    {
+        while (true)
+        {
+            moveDirection = (GetRandomPoint() - transform.position).normalized;
+            pointDelay = new WaitForSeconds(UnityEngine.Random.Range(4, 7));
+            yield return pointDelay;
+        }
+    }
+
+    public Vector3 GetRandomPoint()
+    {
+        //Vector3 randomPoint = (Vector3)UnityEngine.Random.insideUnitCircle * UnityEngine.Random.Range(MinRadius, MaxRadius);
+        Vector3 randomPoint = new Vector3(initaiPos.x + UnityEngine.Random.Range(MinRadius, MaxRadius),
+            initaiPos.y + UnityEngine.Random.Range(MinRadius, MaxRadius),
+            initaiPos.z + UnityEngine.Random.Range(MinRadius, MaxRadius));
+
+        return randomPoint;
+    }
+
+    //private void OnDrawGizmosSelected()
+    //{
+    //    Gizmos.DrawSphere(transform.position, MaxRadius);
+    //}
 }
