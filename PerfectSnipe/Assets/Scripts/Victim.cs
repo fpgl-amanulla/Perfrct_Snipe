@@ -3,10 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using System;
+using UnityEngine.UI;
 
 public class Victim : MonoBehaviour
 {
     public Animator victimAnim;
+
+    public GameObject playerCanvas;
+    public Slider imgFill;
+    public VictimType victimType;
+    public int bossHealth;
 
     public Vector3 startPosition;
     public Vector3 endPosition;
@@ -26,6 +32,13 @@ public class Victim : MonoBehaviour
             if (startDance)
                 victimAnim.SetBool("StartDance", true);
         }
+
+        if(victimType == VictimType.Boss)
+        {
+            Score.SharedManager().SetScore(bossHealth);
+            imgFill.maxValue = bossHealth;
+            imgFill.value = bossHealth;
+        }    
     }
 
     private void StartMove()
@@ -53,5 +66,10 @@ public class Victim : MonoBehaviour
                 //Destroy(collision.gameObject);
             }
         }
+    }
+
+    public void UpdateHealthBar()
+    {
+        imgFill.value = Score.SharedManager().GetCurrentScore();
     }
 }

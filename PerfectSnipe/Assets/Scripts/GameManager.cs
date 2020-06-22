@@ -24,10 +24,23 @@ public class GameManager : MonoBehaviour
         //Debug.Log("Score " + score);
         int currentLevel = AppDelegate.SharedManager().levelCounter;
         int score = Score.SharedManager().GetCurrentScore();
-        if (score >= LevelManager.Instance.GetLevelInfo(currentLevel).totalVictim)
+        Level levelInfo = LevelManager.Instance.GetLevelInfo(currentLevel);
+        if (levelInfo.victimType == VictimType.Boss)
         {
-            isLevelComplete = true;
-            StartCoroutine(WaitToLoadLevelComplete());
+            Debug.Log(score);
+            if (score <= 0)
+            {
+                isLevelComplete = true;
+                StartCoroutine(WaitToLoadLevelComplete());
+            }
+        }
+        else
+        {
+            if (score >= levelInfo.totalVictim)
+            {
+                isLevelComplete = true;
+                StartCoroutine(WaitToLoadLevelComplete());
+            }
         }
 
     }

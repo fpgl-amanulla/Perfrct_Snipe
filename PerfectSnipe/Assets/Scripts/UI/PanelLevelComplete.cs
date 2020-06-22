@@ -33,8 +33,8 @@ public class PanelLevelComplete : MonoBehaviour
         UiManager.Instance.PlayFx(false);
         UiManager.Instance.LoadMainPanel();
 
-        appDelegate.levelCounter = (appDelegate.levelCounter + 1 > 6) ?
-            appDelegate.levelCounter = UnityEngine.Random.Range(0, 7) :
+        appDelegate.levelCounter = (appDelegate.levelCounter + 1 > 9) ?
+            appDelegate.levelCounter = UnityEngine.Random.Range(0, 10) :
 
             appDelegate.levelCounter += 1;
 

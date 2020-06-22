@@ -102,8 +102,11 @@ public class WeaponController : MonoBehaviour
             if (hit.collider.CompareTag("Victim"))
             {
                 shootType = ShootType.Victim;
-                hit.transform.GetComponent<Victim>().sequence.Pause();
-                hit.transform.GetComponent<Victim>().victimAnim.enabled = false;
+                if (hit.transform.GetComponent<Victim>().victimType == VictimType.Normal)
+                {
+                    hit.transform.GetComponent<Victim>().sequence.Pause();
+                    hit.transform.GetComponent<Victim>().victimAnim.enabled = false;
+                }
                 SpawnBullet();
                 int val = UnityEngine.Random.Range(0, 100);
                 bulletType = val % 2 == 0 ? BulletType.Normal : BulletType.WithCamera;
@@ -161,14 +164,36 @@ public class WeaponController : MonoBehaviour
         {
             case ShootType.Victim:
 
-                if (hit.rigidbody == null)
+                if (hit.transform.GetComponent<Victim>().victimType == VictimType.Boss)
                 {
-                    hit.transform.gameObject.AddComponent(typeof(Rigidbody));
+                    Debug.Log("Boss");
+                    Score.SharedManager().TakeDamage(10);
+                    hit.transform.GetComponent<Victim>().UpdateHealthBar();
+                    if (Score.SharedManager().GetCurrentScore() <= 0)
+                    {
+                        if (hit.rigidbody == null)
+                        {
+                            hit.transform.gameObject.AddComponent(typeof(Rigidbody));
+                        }
+                        hit.collider.tag = "Untagged";
+                        Destroy(hit.transform.GetComponent<Victim>().playerCanvas);
+                        hit.transform.GetComponent<Victim>().sequence.Pause();
+                        hit.transform.GetComponent<Victim>().victimAnim.enabled = false;
+                        hit.transform.GetChild(0).GetChild(0).GetComponent<SkinnedMeshRenderer>().material.color = Color.grey;
+                        hit.rigidbody.AddRelativeForce(-hit.normal * impactForce);
+                    }
                 }
-                hit.collider.tag = "Untagged";
-                hit.transform.GetChild(0).GetChild(0).GetComponent<SkinnedMeshRenderer>().material.color = Color.grey;
-                hit.rigidbody.AddRelativeForce(-hit.normal * impactForce);
-                Score.SharedManager().AddScore(1);
+                else
+                {
+                    if (hit.rigidbody == null)
+                    {
+                        hit.transform.gameObject.AddComponent(typeof(Rigidbody));
+                    }
+                    hit.collider.tag = "Untagged";
+                    hit.transform.GetChild(0).GetChild(0).GetComponent<SkinnedMeshRenderer>().material.color = Color.grey;
+                    hit.rigidbody.AddRelativeForce(-hit.normal * impactForce);
+                    Score.SharedManager().AddScore(1);
+                }
                 break;
             case ShootType.Destroyable:
                 Destroy(hit.transform.gameObject);

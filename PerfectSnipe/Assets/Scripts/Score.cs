@@ -5,13 +5,13 @@ using UnityEngine;
 
 public class Score
 {
-    public int score { get;private set; }
+    public int score { get; private set; }
 
     public static Score Instance = null;
 
     public static Score SharedManager()
     {
-        if(Instance==null)
+        if (Instance == null)
         {
             Instance = Score.Create();
         }
@@ -20,6 +20,7 @@ public class Score
 
     public int GetCurrentScore() => score;
 
+    public void SetScore(int value) => score = value;
     public void AddScore(int value)
     {
         score += value;
@@ -30,7 +31,7 @@ public class Score
     private static Score Create()
     {
         Score ret = new Score();
-        if(ret!=null && ret.Init())
+        if (ret != null && ret.Init())
         {
             return ret;
         }
@@ -40,5 +41,11 @@ public class Score
     private bool Init()
     {
         return true;
+    }
+
+    public void TakeDamage(int value)
+    {
+        score -= value;
+        GameManager.Instance.CheckLevelComplete();
     }
 }

@@ -14,7 +14,7 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
-  m_Fog: 1
+  m_Fog: 0
   m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   m_FogMode: 3
   m_FogDensity: 0.01
@@ -4945,44 +4945,62 @@ MonoBehaviour:
   - levelNo: 1
     totalVictim: 1
     rewardAmount: 50
-    boosHealth: 0
+    victimType: 0
     levelPrefab: {fileID: 5922506843998905649, guid: 07b9e165a7e9980499089e9b53b39c07,
       type: 3}
   - levelNo: 2
     totalVictim: 2
     rewardAmount: 70
-    boosHealth: 0
+    victimType: 0
     levelPrefab: {fileID: 3907619573368772720, guid: be15d640a8848704b909797da81d7ec3,
       type: 3}
   - levelNo: 3
     totalVictim: 3
     rewardAmount: 90
-    boosHealth: 0
+    victimType: 0
     levelPrefab: {fileID: 6147789783998805407, guid: d8d9c8ae21e7e2f45b7af57714b2874b,
       type: 3}
   - levelNo: 4
     totalVictim: 3
     rewardAmount: 100
-    boosHealth: 0
+    victimType: 0
     levelPrefab: {fileID: 6904388713452865174, guid: 313c80d0197b4eb4c931d753e9fbe8c9,
       type: 3}
   - levelNo: 5
     totalVictim: 5
     rewardAmount: 120
-    boosHealth: 0
+    victimType: 0
     levelPrefab: {fileID: 2430355708906928022, guid: 32d63cd896e8d1c42822161bbd1524ed,
       type: 3}
   - levelNo: 6
     totalVictim: 2
     rewardAmount: 130
-    boosHealth: 0
+    victimType: 0
     levelPrefab: {fileID: 6147789783998805407, guid: f1132659d44dab64c8e4b312799f547d,
       type: 3}
   - levelNo: 7
     totalVictim: 2
     rewardAmount: 140
-    boosHealth: 0
+    victimType: 0
     levelPrefab: {fileID: 6147789783998805407, guid: 1449c0e408ba1324fb8a60755a54dae2,
+      type: 3}
+  - levelNo: 8
+    totalVictim: 4
+    rewardAmount: 150
+    victimType: 0
+    levelPrefab: {fileID: 263043887748633994, guid: a2e7e861d070ed84fa9c4c43d69f884a,
+      type: 3}
+  - levelNo: 9
+    totalVictim: 4
+    rewardAmount: 170
+    victimType: 0
+    levelPrefab: {fileID: 538989955658248806, guid: d261fc1c5e662be42954c5c2f9454741,
+      type: 3}
+  - levelNo: 10
+    totalVictim: 1
+    rewardAmount: 200
+    victimType: 1
+    levelPrefab: {fileID: 8470852253791152676, guid: 0ac0d86e6a4b45941971fb1a83c141bd,
       type: 3}
 --- !u!4 &203246465
 Transform:
