@@ -166,7 +166,6 @@ public class WeaponController : MonoBehaviour
 
                 if (hit.transform.GetComponent<Victim>().victimType == VictimType.Boss)
                 {
-                    Debug.Log("Boss");
                     Score.SharedManager().TakeDamage(10);
                     hit.transform.GetComponent<Victim>().UpdateHealthBar();
                     if (Score.SharedManager().GetCurrentScore() <= 0)

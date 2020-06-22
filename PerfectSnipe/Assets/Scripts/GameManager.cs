@@ -27,7 +27,6 @@ public class GameManager : MonoBehaviour
         Level levelInfo = LevelManager.Instance.GetLevelInfo(currentLevel);
         if (levelInfo.victimType == VictimType.Boss)
         {
-            Debug.Log(score);
             if (score <= 0)
             {
                 isLevelComplete = true;
