@@ -9,7 +9,6 @@ public class Level
     public int totalVictim;
     public int rewardAmount;
     public VictimType victimType;
-    public GameObject levelPrefab;
 }
 
 public class LevelManager : MonoBehaviour
@@ -20,17 +19,35 @@ public class LevelManager : MonoBehaviour
     public GameObject environment;
     public List<Level> levelList = new List<Level>();
 
-    private GameObject level;
-
+    public GameObject dinoPrefab;
+    public GameObject dinos;
+    public List<GameObject> allDino = new List<GameObject>();
     private void Awake()
     {
         if (Instance == null) Instance = this;
         AppDelegate.SharedManager().levelCounter = levelToLoad;
-        LoadLevel(levelToLoad);
+        LoadLevel();
     }
 
-    public void LoadLevel(int levelNo) => level = Instantiate(levelList[levelNo].levelPrefab, environment.transform);
-    public void DestroyLevel() => Destroy(level);
+    public void LoadLevel()
+    {
+        allDino = new List<GameObject>();
+        Level level = GetLevelInfo(AppDelegate.SharedManager().levelCounter);
+        for (int i = 0; i < level.totalVictim + 1; i++)
+        {
+            Vector3 pos = new Vector3(Random.Range(-7, 7), 0, Random.Range(-7, 7));
+            GameObject g = Instantiate(dinoPrefab, dinos.transform);
+            g.transform.localPosition = pos;
+            allDino.Add(g);
+        }
+    }
 
+    public void ResetLevel()
+    {
+        for (int i = 0; i < allDino.Count; i++)
+        {
+            Destroy(allDino[i]);
+        }
+    }
     public Level GetLevelInfo(int levelNo) => levelList[levelNo];
 }

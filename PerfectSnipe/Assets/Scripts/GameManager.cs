@@ -48,7 +48,7 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(2.0f);
         UiManager.Instance.LoadLevelComplete();
-        LevelManager.Instance.DestroyLevel();
+        LevelManager.Instance.ResetLevel();
         weaponHolder.SetActive(false);
     }
 }

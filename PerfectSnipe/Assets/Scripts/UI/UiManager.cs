@@ -50,16 +50,16 @@ public class UiManager : MonoBehaviour
     {
         if (status)
         {
-            this.GetComponent<Canvas>().renderMode = RenderMode.ScreenSpaceCamera;
-            uiCamera.gameObject.SetActive(true);
-            this.GetComponent<Canvas>().worldCamera = uiCamera;
+            //this.GetComponent<Canvas>().renderMode = RenderMode.ScreenSpaceCamera;
+            //uiCamera.gameObject.SetActive(true);
+            //this.GetComponent<Canvas>().worldCamera = uiCamera;
             FxManager.Instance.ConfettiSetActive(true);
             FxManager.Instance.PlayConfettiFx(true);
         }
         else
         {
-            this.GetComponent<Canvas>().renderMode = RenderMode.ScreenSpaceOverlay;
-            uiCamera.gameObject.SetActive(false);
+            //this.GetComponent<Canvas>().renderMode = RenderMode.ScreenSpaceOverlay;
+            //uiCamera.gameObject.SetActive(false);
             FxManager.Instance.ConfettiSetActive(false);
             FxManager.Instance.PlayConfettiFx(false);
         }

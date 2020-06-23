@@ -26,7 +26,8 @@ public class PanelMainMenu : MonoBehaviour
         GameManager.Instance.weaponHolder.SetActive(true);
         GameManager.Instance.isLevelComplete = false;
         Score.SharedManager().ResetScore();
-        levelManager.LoadLevel(AppDelegate.SharedManager().levelCounter);
+        //levelManager.LoadLevel(AppDelegate.SharedManager().levelCounter);
+        LevelManager.Instance.LoadLevel();
         UiManager.Instance.tapToAim.SetActive(true);
         UiManager.Instance.InitGamePanel();
         Destroy(this.gameObject);

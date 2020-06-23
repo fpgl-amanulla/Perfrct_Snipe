@@ -25,18 +25,21 @@ public class Victim : MonoBehaviour
 
     public Sequence sequence { get; private set; }
 
-    private bool isDied = false;
     private Vector3 currentDirection = Vector3.forward;
     private Vector3 deviation;
     private Vector3 moveDirection = Vector3.forward;
     private WaitForSeconds pointDelay;
-    [SerializeField] private float speed = .1f;
+    public float speed = .1f;
     [SerializeField] private float maxDragDistance = 40f;
     [SerializeField] private float MaxRadius;
     [SerializeField] private float MinRadius;
-    [SerializeField] private float movementSmoothing;
+    public float movementSmoothing;
     [SerializeField] private float rotationSmoothing;
+
+    //public SkinnedMeshRenderer skinnedMeshRenderer;
     private Vector3 initaiPos;
+
+    public bool isDied { get; set; }
 
     private void Start()
     {
@@ -99,6 +102,9 @@ public class Victim : MonoBehaviour
 
     private void HandleVictimMovement()
     {
+        if (isDied)
+            return;
+
         currentDirection = Vector3.zero;
         currentDirection = new Vector3(Mathf.Lerp(currentDirection.x, moveDirection.x, movementSmoothing), 0f, Mathf.Lerp(currentDirection.y, moveDirection.y, movementSmoothing));
         deviation = currentDirection * speed * maxDragDistance * Time.deltaTime;
@@ -132,4 +138,12 @@ public class Victim : MonoBehaviour
     //{
     //    Gizmos.DrawSphere(transform.position, MaxRadius);
     //}
+
+    public void VictimDie()
+    {
+        this.gameObject.tag = "Untagged";
+        Score.SharedManager().AddScore(1);
+        victimAnim.SetBool("Died", true);
+        Debug.Log("Ok");
+    }
 }

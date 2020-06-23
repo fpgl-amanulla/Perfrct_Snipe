@@ -6,8 +6,8 @@ using UnityEngine;
 public class CameraMovement : MonoBehaviour
 {
     public float REFRESH_TIME = 0.1f;
-    private Vector3 touchStartPos;
     float refreshDelta = 0.0f;
+    private Vector3 touchStartPos;
     [SerializeField]
     [Range(5, 20)]
     float smoothingTime = 10.0f; //decrease value to move faster

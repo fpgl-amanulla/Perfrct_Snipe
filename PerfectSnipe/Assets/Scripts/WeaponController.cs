@@ -37,6 +37,8 @@ public class WeaponController : MonoBehaviour
 
     Sequence sequence;
     public int score { get; set; }
+
+    private bool islooking = false;
     #endregion
     private void Start()
     {
@@ -50,6 +52,14 @@ public class WeaponController : MonoBehaviour
             return;
 
         InputHandler();
+
+
+    }
+
+    private void LateUpdate()
+    {
+        if (islooking)
+            mainCamera.transform.LookAt(hit.point + Vector3.forward);
     }
 
     private void InputHandler()
@@ -101,12 +111,8 @@ public class WeaponController : MonoBehaviour
         {
             if (hit.collider.CompareTag("Victim"))
             {
-                shootType = ShootType.Victim;
-                if (hit.transform.GetComponent<Victim>().victimType == VictimType.Normal)
-                {
-                    hit.transform.GetComponent<Victim>().sequence.Pause();
-                    hit.transform.GetComponent<Victim>().victimAnim.enabled = false;
-                }
+                hit.transform.GetComponentInParent<Victim>().isDied = true;
+
                 SpawnBullet();
                 int val = UnityEngine.Random.Range(0, 100);
                 bulletType = val % 2 == 0 ? BulletType.Normal : BulletType.WithCamera;
@@ -115,24 +121,12 @@ public class WeaponController : MonoBehaviour
                 {
                     weaponCamera.SetActive(false);
                     imgScope.SetActive(false);
-                    Vector3 camPos = new Vector3(0, 0, -1.5f);
+                    Vector3 camPos = new Vector3(0, 0, -10.5f);
                     sequence = DOTween.Sequence();
+                    islooking = true;
                     sequence.AppendInterval(.1f).Append(mainCamera.transform.DOMove(hit.point + camPos, .4f));
                     Time.timeScale = .4f;
                 }
-            }
-            else if (hit.collider.CompareTag("Destroyable"))
-            {
-                shootType = ShootType.Destroyable;
-                SpawnBullet();
-            }
-            else if (hit.collider.CompareTag("Explosive"))
-            {
-                shootType = ShootType.Explosive;
-
-                SpawnBullet();
-                SoundManager.Instance.PlayExplosiveSound();
-
             }
             else
             {
@@ -163,80 +157,11 @@ public class WeaponController : MonoBehaviour
         switch (shootType)
         {
             case ShootType.Victim:
-
-                if (hit.transform.GetComponent<Victim>().victimType == VictimType.Boss)
-                {
-                    Score.SharedManager().TakeDamage(10);
-                    hit.transform.GetComponent<Victim>().UpdateHealthBar();
-                    if (Score.SharedManager().GetCurrentScore() <= 0)
-                    {
-                        if (hit.rigidbody == null)
-                        {
-                            hit.transform.gameObject.AddComponent(typeof(Rigidbody));
-                        }
-                        hit.collider.tag = "Untagged";
-                        Destroy(hit.transform.GetComponent<Victim>().playerCanvas);
-                        hit.transform.GetComponent<Victim>().sequence.Pause();
-                        hit.transform.GetComponent<Victim>().victimAnim.enabled = false;
-                        hit.transform.GetChild(0).GetChild(0).GetComponent<SkinnedMeshRenderer>().material.color = Color.grey;
-                        hit.rigidbody.AddRelativeForce(-hit.normal * impactForce);
-                    }
-                }
-                else
-                {
-                    if (hit.rigidbody == null)
-                    {
-                        hit.transform.gameObject.AddComponent(typeof(Rigidbody));
-                    }
-                    hit.collider.tag = "Untagged";
-                    hit.transform.GetChild(0).GetChild(0).GetComponent<SkinnedMeshRenderer>().material.color = Color.grey;
-                    hit.rigidbody.AddRelativeForce(-hit.normal * impactForce);
-                    Score.SharedManager().AddScore(1);
-                }
-                break;
-            case ShootType.Destroyable:
-                Destroy(hit.transform.gameObject);
-                GameObject g = Instantiate(FxManager.Instance.crackCube, hit.transform.gameObject.transform.position, Quaternion.identity);
-                Transform[] allPiece = g.transform.GetComponentsInChildren<Transform>();
-                foreach (var item in allPiece)
-                {
-                    if (item.GetComponent<Rigidbody>() == null)
-                        item.gameObject.AddComponent(typeof(Rigidbody));
-                    item.GetComponent<Rigidbody>().AddExplosionForce(50, item.transform.position, 3);
-                    StartCoroutine(WaitToDestroy(item.gameObject, 3f));
-                }
-                break;
-            case ShootType.Explosive:
-
-                Instantiate(FxManager.Instance.explosiveImpactFX, hit.transform.position, Quaternion.LookRotation(hit.normal));
-
-                Collider[] colliders = Physics.OverlapSphere(hit.point, 10);
-
-                foreach (var item in colliders)
-                {
-                    if (!item.gameObject.CompareTag("Static"))
-                    {
-                        if (item.GetComponent<Rigidbody>() == null)
-                        {
-                            item.gameObject.AddComponent(typeof(Rigidbody));
-                            Rigidbody rb = item.GetComponent<Rigidbody>();
-                            rb.AddExplosionForce(explosionForce, hit.point, 50);
-                            if (item.gameObject.CompareTag("Victim"))
-                            {
-                                Score.SharedManager().AddScore(1);
-                                item.transform.GetComponent<Victim>().sequence.Pause();
-                                item.transform.GetChild(0).GetChild(0).GetComponent<SkinnedMeshRenderer>().material.color = Color.grey;
-                                item.transform.gameObject.tag = "Untagged";
-                                StartCoroutine(WaitToDestroy(item.gameObject, .5f));
-                            }
-                        }
-                        if (item.gameObject.CompareTag("Explosive"))
-                        {
-                            Destroy(item.gameObject);
-                        }
-                    }
-                }
-                Destroy(hit.transform.gameObject);
+                hit.transform.gameObject.tag = "Untagged";
+                hit.transform.GetComponent<MeshCollider>().enabled = false;
+                hit.transform.GetComponentInParent<Victim>().victimAnim.SetBool("Died", true);
+                hit.transform.GetComponentInParent<Victim>().enabled = false;
+                Score.SharedManager().AddScore(1);
                 break;
             case ShootType.Other:
 
@@ -266,6 +191,7 @@ public class WeaponController : MonoBehaviour
     private IEnumerator ResetMainCamPos()
     {
         yield return new WaitForSeconds(.5f);
+        islooking = false;
         sequence.Kill();
         Time.timeScale = 1.0f;
         mainCamera.transform.DOLocalMove(new Vector3(0, 0, 0), 0f);
