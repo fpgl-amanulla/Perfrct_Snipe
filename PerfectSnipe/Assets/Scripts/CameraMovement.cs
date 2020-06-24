@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class CameraMovement : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class CameraMovement : MonoBehaviour
     float smoothingTime = 10.0f; //decrease value to move faster
     void Update()
     {
+
         if (Input.GetMouseButtonDown(0))
         {
             touchStartPos = Input.mousePosition;

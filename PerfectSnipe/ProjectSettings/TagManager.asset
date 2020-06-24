@@ -10,6 +10,9 @@ TagManager:
   - Static
   - Destroyable
   - Slayer
+  - Missile
+  - Food
+  - Fish
   layers:
   - Default
   - TransparentFX
@@ -21,7 +24,7 @@ TagManager:
   - 
   - Weapon
   - Bullet
-  - 
+  - Slider
   - 
   - 
   - 

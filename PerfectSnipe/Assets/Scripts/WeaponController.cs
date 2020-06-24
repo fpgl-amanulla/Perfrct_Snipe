@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class WeaponController : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class WeaponController : MonoBehaviour
     public GameObject imgScope;
     public GameObject bulletPrefab;
     public GameObject firePoint;
+
+    public GameObject Slider;
 
     private GameObject newBullet;
 
@@ -51,9 +54,18 @@ public class WeaponController : MonoBehaviour
         if (GameManager.Instance.isLevelComplete)
             return;
 
+        if (EventSystem.current.IsPointerOverGameObject() && EventSystem.current.currentSelectedGameObject)
+        {
+            return;
+        }
+        foreach (Touch touch in Input.touches)
+        {
+            if (EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
+            {
+                return;
+            }
+        }
         InputHandler();
-
-
     }
 
     private void LateUpdate()
@@ -80,6 +92,7 @@ public class WeaponController : MonoBehaviour
             {
                 isScopeOut = false;
                 animator.SetBool("Scoped", true);
+                Slider.SetActive(false);
                 StartCoroutine(ScopeIn());
             }
         }
@@ -112,6 +125,7 @@ public class WeaponController : MonoBehaviour
             if (hit.collider.CompareTag("Victim"))
             {
                 hit.transform.GetComponentInParent<Victim>().isDied = true;
+                hit.transform.GetComponentInParent<Victim>().UpdateHealthBar();
 
                 SpawnBullet();
                 int val = UnityEngine.Random.Range(0, 100);
@@ -157,11 +171,12 @@ public class WeaponController : MonoBehaviour
         switch (shootType)
         {
             case ShootType.Victim:
-                hit.transform.gameObject.tag = "Untagged";
-                hit.transform.GetComponent<MeshCollider>().enabled = false;
-                hit.transform.GetComponentInParent<Victim>().victimAnim.SetBool("Died", true);
-                hit.transform.GetComponentInParent<Victim>().enabled = false;
-                Score.SharedManager().AddScore(1);
+                hit.transform.GetComponentInParent<Victim>().VictimDie();
+                //hit.transform.gameObject.tag = "Untagged";
+                //hit.transform.GetComponent<MeshCollider>().enabled = false;
+                //hit.transform.GetComponentInParent<Victim>().victimAnim.SetBool("Died", true);
+                //hit.transform.GetComponentInParent<Victim>().enabled = false;
+                //Score.SharedManager().AddScore(1);
                 break;
             case ShootType.Other:
 
@@ -216,6 +231,7 @@ public class WeaponController : MonoBehaviour
     public void ScopeOut()
     {
         isScopeOut = true;
+        Slider.SetActive(true);
         animator.SetBool("Scoped", false);
         mainCamera.fieldOfView = defaultFOV;
         imgScope.SetActive(false);

@@ -36,11 +36,12 @@ public class Victim : MonoBehaviour
     public float movementSmoothing;
     [SerializeField] private float rotationSmoothing;
 
-    //public SkinnedMeshRenderer skinnedMeshRenderer;
+    public MeshCollider meshCollider;
     private Vector3 initaiPos;
 
     public bool isDied { get; set; }
 
+    public int health = 1;
     private void Start()
     {
         initaiPos = this.transform.position;
@@ -60,6 +61,8 @@ public class Victim : MonoBehaviour
             imgFill.maxValue = bossHealth;
             imgFill.value = bossHealth;
         }
+        imgFill.maxValue = health;
+        imgFill.value = health;
     }
     #region PerfectSnipe
     private void StartMove()
@@ -91,7 +94,8 @@ public class Victim : MonoBehaviour
 
     public void UpdateHealthBar()
     {
-        imgFill.value = Score.SharedManager().GetCurrentScore();
+        health -= 1;
+        imgFill.value = health;
     }
     #endregion
 
@@ -114,6 +118,23 @@ public class Victim : MonoBehaviour
         //playerRigidbody.MovePosition(playerRigidbody.position + (deviation * 2f));
     }
 
+    //private void OnDrawGizmosSelected()
+    //{
+    //    Gizmos.DrawSphere(transform.position, MaxRadius);
+    //}
+
+    public void VictimDie()
+    {
+        if (health <= 0)
+        {
+            this.gameObject.tag = "Untagged";
+            Score.SharedManager().AddScore(1);
+            victimAnim.SetBool("Died", true);
+            meshCollider.enabled = false;
+            playerCanvas.SetActive(false);
+        }
+
+    }
     IEnumerator GeneratePointRoutine()
     {
         while (true)
@@ -134,16 +155,4 @@ public class Victim : MonoBehaviour
         return randomPoint;
     }
 
-    //private void OnDrawGizmosSelected()
-    //{
-    //    Gizmos.DrawSphere(transform.position, MaxRadius);
-    //}
-
-    public void VictimDie()
-    {
-        this.gameObject.tag = "Untagged";
-        Score.SharedManager().AddScore(1);
-        victimAnim.SetBool("Died", true);
-        Debug.Log("Ok");
-    }
 }
