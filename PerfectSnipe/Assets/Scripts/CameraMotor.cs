@@ -6,95 +6,51 @@ using UnityEngine.EventSystems;
 
 public class CameraMotor : MonoBehaviour
 {
-    private Touch initTouch = new Touch();
+    public static CameraMotor Instance;
+    public GameObject player;
 
-    private float rotX = 0f;
-    private float rotY = 0f;
-    private Vector3 origRot;
+    private Vector3 startPos;
+    private Vector3 lastPos;
+    private Vector3 deltapos;
+    public float Speed;
 
-    public float rotSpeed = 0.1f;
-    public float dir = -1;
+    public float rotX = 0;
+    public float rotY = 0;
 
-    public float REFRESH_TIME = 0.1f;
-    float refreshDelta = 0.0f;
-
-    private Vector3 inititalPos;
-
-    void Start()
+    public bool isEnable = true;
+    private void Start()
     {
-        origRot = transform.eulerAngles;
-        rotX = origRot.x;
-        rotY = origRot.y;
+        if (Instance == null) Instance = this;
     }
 
-
-    void FixedUpdate()
+    private void Update()
     {
-        //if (Application.isEditor)
-        //{
-        //    if (Input.GetMouseButtonDown(0))
-        //    {
-        //        refreshDelta = 0;
-        //        inititalPos = Input.mousePosition;
-        //    }
-        //    if (Input.GetMouseButtonDown(0))
-        //    {
-        //        refreshDelta += Time.deltaTime;
 
-        //        float deltaX = Input.mousePosition.x - inititalPos.x;
-        //        float deltaY = Input.mousePosition.y - inititalPos.y;
-        //        rotX -= deltaY * Time.deltaTime * rotSpeed * dir;
-        //        rotY += deltaX * Time.deltaTime * rotSpeed * dir;
-        //        rotX = Mathf.Clamp(rotX, -720f, 720f);
-        //        transform.eulerAngles = new Vector3(rotX, rotY, 0f) * Time.deltaTime;
+        if (isEnable == false)
+            return;
 
-
-        //        if (refreshDelta >= REFRESH_TIME)
-        //        {
-        //            refreshDelta = 0.0f;
-        //            inititalPos = Input.mousePosition;
-        //        }
-        //    }
-        //    if (Input.GetMouseButtonUp(0))
-        //    {
-        //        transform.localPosition = new Vector3(0, 0, 0);
-        //    }
-        //}
-        foreach (Touch touch in Input.touches)
+        if (Input.GetMouseButtonDown(0))
         {
-            if (EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
-            {
-                initTouch = new Touch();
-            }
-            else
-            {
-                if (touch.phase == TouchPhase.Began)
-                {
-                    initTouch = touch;
-                }
-                else if (touch.phase == TouchPhase.Moved)
-                {
-                    refreshDelta += Time.deltaTime;
+            lastPos = Input.mousePosition;
+        }
+        else if (Input.GetMouseButton(0))
+        {
+            deltapos = Input.mousePosition - lastPos;
 
-                    float deltaX = initTouch.position.x - touch.position.x;
-                    float deltaY = initTouch.position.y - touch.position.y;
-                    rotX -= deltaY * Time.deltaTime * rotSpeed * dir;
-                    rotY += deltaX * Time.deltaTime * rotSpeed * dir;
-                    rotX = Mathf.Clamp(rotX, -720f, 720f);
-                    transform.eulerAngles = new Vector3(rotX, rotY, 0f) * Time.deltaTime;
+            rotX -= deltapos.y * Time.deltaTime * Speed * 1;
+            rotY = deltapos.x * Time.deltaTime * Speed * 1;
 
+            rotX = Mathf.Clamp(rotX, -15, 15);
 
-                    if (refreshDelta >= REFRESH_TIME)
-                    {
-                        refreshDelta = 0.0f;
-                        initTouch = touch;
-                    }
-                }
-                else if (touch.phase == TouchPhase.Ended)
-                {
-                    initTouch = new Touch();
-                }
-            }
+            transform.localRotation = Quaternion.Euler(rotX, 0, 0);
+
+            player.transform.Rotate(Vector3.up * rotY);
+
+            lastPos = Input.mousePosition;
+        }
+        else if (Input.GetMouseButtonUp(0))
+        {
+
         }
     }
 }

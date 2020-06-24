@@ -35,7 +35,7 @@ public class LevelManager : MonoBehaviour
         Level level = GetLevelInfo(AppDelegate.SharedManager().levelCounter);
         for (int i = 0; i < level.totalVictim + 1; i++)
         {
-            Vector3 pos = new Vector3(Random.Range(-7, 7), 0, Random.Range(-7, 7));
+            Vector3 pos = new Vector3(Random.Range(-15, 15), 0, Random.Range(-7, 7));
             GameObject g = Instantiate(dinoPrefab, dinos.transform);
             g.transform.localPosition = pos;
             allDino.Add(g);

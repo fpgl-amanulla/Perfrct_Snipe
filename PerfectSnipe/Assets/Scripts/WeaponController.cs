@@ -234,6 +234,9 @@ public class WeaponController : MonoBehaviour
         Slider.SetActive(true);
         animator.SetBool("Scoped", false);
         mainCamera.fieldOfView = defaultFOV;
+        //Vector3 v = mainCamera.transform.eulerAngles;
+        //v.z = 0;
+        //mainCamera.transform.eulerAngles = v;
         imgScope.SetActive(false);
         weaponCamera.SetActive(true);
     }
