@@ -16,7 +16,7 @@ public class WeaponController : MonoBehaviour
     public GameObject bulletPrefab;
     public GameObject firePoint;
 
-    public GameObject Slider;
+    public GameObject slider;
 
     private GameObject newBullet;
 
@@ -42,6 +42,7 @@ public class WeaponController : MonoBehaviour
     public int score { get; set; }
 
     private bool islooking = false;
+    private Transform currCamTransform;
     #endregion
     private void Start()
     {
@@ -51,20 +52,9 @@ public class WeaponController : MonoBehaviour
     private void Update()
     {
 
+        if (mainCamera.GetComponent<CameraMotor>().isEnable == false) return;
         if (GameManager.Instance.isLevelComplete)
             return;
-
-        if (EventSystem.current.IsPointerOverGameObject() && EventSystem.current.currentSelectedGameObject)
-        {
-            return;
-        }
-        foreach (Touch touch in Input.touches)
-        {
-            if (EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
-            {
-                return;
-            }
-        }
         InputHandler();
     }
 
@@ -92,7 +82,7 @@ public class WeaponController : MonoBehaviour
             {
                 isScopeOut = false;
                 animator.SetBool("Scoped", true);
-                Slider.SetActive(false);
+                slider.SetActive(false);
                 StartCoroutine(ScopeIn());
             }
         }
@@ -135,11 +125,12 @@ public class WeaponController : MonoBehaviour
                 {
                     weaponCamera.SetActive(false);
                     imgScope.SetActive(false);
-                    Vector3 camPos = new Vector3(0, 0, -10.5f);
+                    currCamTransform = mainCamera.transform;
+                    Vector3 camDesPos = new Vector3(0, 0, -10.5f);
                     sequence = DOTween.Sequence();
                     islooking = true;
-                    sequence.AppendInterval(.1f).Append(mainCamera.transform.DOMove(hit.point + camPos, .4f));
-                    Time.timeScale = .4f;
+                    sequence.AppendInterval(.1f).Append(mainCamera.transform.DOMove(hit.point + camDesPos, .4f));
+                    Time.timeScale = .7f;
                 }
             }
             else
@@ -210,6 +201,7 @@ public class WeaponController : MonoBehaviour
         sequence.Kill();
         Time.timeScale = 1.0f;
         mainCamera.transform.DOLocalMove(new Vector3(0, 0, 0), 0f);
+        mainCamera.transform.DOLocalRotateQuaternion(currCamTransform.rotation, 0f);
         //shoot = false;
         ScopeOut();
     }
@@ -231,12 +223,9 @@ public class WeaponController : MonoBehaviour
     public void ScopeOut()
     {
         isScopeOut = true;
-        Slider.SetActive(true);
+        slider.SetActive(true);
         animator.SetBool("Scoped", false);
         mainCamera.fieldOfView = defaultFOV;
-        //Vector3 v = mainCamera.transform.eulerAngles;
-        //v.z = 0;
-        //mainCamera.transform.eulerAngles = v;
         imgScope.SetActive(false);
         weaponCamera.SetActive(true);
     }

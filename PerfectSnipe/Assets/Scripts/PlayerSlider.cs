@@ -4,14 +4,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MySlider : MonoBehaviour
+public class PlayerSlider : MonoBehaviour
 {
     public GameObject mainCamera;
     public GameObject player;
 
+    private CameraMotor cameraMotor;
     private void Start()
     {
         GetComponent<Slider>().onValueChanged.AddListener(delegate { CheckeValueChanger(); });
+
+        cameraMotor = mainCamera.GetComponent<CameraMotor>();
     }
 
     public void OnEnable()
@@ -29,21 +32,20 @@ public class MySlider : MonoBehaviour
         Vector3 rot = player.transform.eulerAngles;
         rot.y = GetComponent<Slider>().value;
         player.transform.eulerAngles = rot;
-        //mainCamera.transform.Rotate(Vector3.up * GetComponent<Slider>().value);
     }
 
     public void Selected()
     {
-        CameraMotor.Instance.isEnable = false;
+        cameraMotor.isEnable = false;
         //Debug.Log("Selected");
     }
 
     public void DeSelected()
     {
-        CameraMotor.Instance.isEnable = true;
+        cameraMotor.isEnable = true;
         Vector3 rot = mainCamera.transform.eulerAngles;
-        CameraMotor.Instance.rotX = rot.x;
-        CameraMotor.Instance.rotY = player.transform.rotation.y;
+        cameraMotor.rotX = rot.x;
+        cameraMotor.rotY = player.transform.rotation.y;
         //Debug.Log("DeSelected");
     }
 }

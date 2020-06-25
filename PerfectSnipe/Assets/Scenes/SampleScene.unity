@@ -257,7 +257,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.2784314}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.003921569}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -9767,7 +9767,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.509434, g: 0.4541652, b: 0.4541652, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -10430,7 +10430,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 2354332808745793608, guid: 5e2944e1d33d64b4f9651da545099c4e,
     type: 3}
   firePoint: {fileID: 103828893}
-  Slider: {fileID: 1824210319}
+  slider: {fileID: 1824210319}
   impactForce: 20
   explosionForce: 300
   scopedInFOV: 25
@@ -21419,7 +21419,6 @@ GameObject:
   - component: {fileID: 963194228}
   - component: {fileID: 963194227}
   - component: {fileID: 963194226}
-  - component: {fileID: 963194229}
   - component: {fileID: 963194230}
   m_Layer: 0
   m_Name: Main Camera
@@ -21495,20 +21494,6 @@ Transform:
   m_Father: {fileID: 685969068}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &963194229
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 963194225}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5656eb54db5f764c84c57415917141b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  REFRESH_TIME: 0.2
-  smoothingTime: 10
 --- !u!114 &963194230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36586,8 +36571,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -2.5, y: 1}
-  m_SizeDelta: {x: 60, y: -15.000004}
+  m_AnchoredPosition: {x: -35, y: 0}
+  m_SizeDelta: {x: 80, y: -12}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1472984008
 MonoBehaviour:
@@ -46795,7 +46780,7 @@ GameObject:
   - component: {fileID: 1824210322}
   - component: {fileID: 1824210323}
   m_Layer: 5
-  m_Name: Slider
+  m_Name: PlayerSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
