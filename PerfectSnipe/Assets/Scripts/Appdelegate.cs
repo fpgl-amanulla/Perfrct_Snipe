@@ -10,6 +10,9 @@ public class AppDelegate
     public int levelCounter = 0;
     public int tempLevelCounter = 0;
 
+    public string selectedDinoId { get; set; }
+    public string selectedDinoName { get; set; }
+
     public static AppDelegate SharedManager()
     {
         if (Instance == null)

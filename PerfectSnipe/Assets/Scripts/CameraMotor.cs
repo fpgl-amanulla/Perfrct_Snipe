@@ -6,10 +6,8 @@ using UnityEngine.EventSystems;
 
 public class CameraMotor : MonoBehaviour
 {
-    public static CameraMotor Instance;
     public GameObject player;
 
-    private Vector3 startPos;
     private Vector3 lastPos;
     private Vector3 deltapos;
     public float Speed;
@@ -18,10 +16,6 @@ public class CameraMotor : MonoBehaviour
     public float rotY = 0;
 
     public bool isEnable = true;
-    private void Start()
-    {
-        if (Instance == null) Instance = this;
-    }
 
     private void Update()
     {

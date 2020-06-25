@@ -65,23 +65,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   victimAnim: {fileID: 5086609770388329730}
-  playerCanvas: {fileID: 1095925306366037752}
+  canvas: {fileID: 1095925306366037752}
   imgFill: {fileID: 1095925304713992073}
   victimType: 0
-  bossHealth: 0
-  startPosition: {x: 0, y: 0, z: 0}
-  endPosition: {x: 0, y: 0, z: 0}
-  durationTime: 0
-  startWalk: 0
-  startDance: 0
   visual: {fileID: 5086609770754976375}
   speed: 0.01
-  maxDragDistance: 40
-  MaxRadius: -5
-  MinRadius: 5
-  movementSmoothing: 150
-  rotationSmoothing: 150
   meshCollider: {fileID: 6210511360098182929}
+  dinoName: Giganotosaurus
+  dinoId: 0
+  health: 1
 --- !u!1 &5086609770754976374
 GameObject:
   m_ObjectHideFlags: 0
@@ -158,22 +150,22 @@ PrefabInstance:
     - target: {fileID: 1095925304918485678, guid: c8f9f8a9173393e4aaed4441c6a284c5,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 1.36
       objectReference: {fileID: 0}
     - target: {fileID: 1095925304918485678, guid: c8f9f8a9173393e4aaed4441c6a284c5,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1095925304918485678, guid: c8f9f8a9173393e4aaed4441c6a284c5,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1095925304918485678, guid: c8f9f8a9173393e4aaed4441c6a284c5,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1095925304918485678, guid: c8f9f8a9173393e4aaed4441c6a284c5,
         type: 3}
@@ -208,7 +200,7 @@ PrefabInstance:
     - target: {fileID: 1095925304918485678, guid: c8f9f8a9173393e4aaed4441c6a284c5,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 1.4
+      value: 1.72
       objectReference: {fileID: 0}
     - target: {fileID: 1095925304918485678, guid: c8f9f8a9173393e4aaed4441c6a284c5,
         type: 3}

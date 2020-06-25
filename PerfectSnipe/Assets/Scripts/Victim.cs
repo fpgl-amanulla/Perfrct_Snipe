@@ -9,18 +9,9 @@ public class Victim : MonoBehaviour
 {
     public Animator victimAnim;
 
-    public GameObject playerCanvas;
+    public GameObject canvas;
     public Slider imgFill;
     public VictimType victimType;
-    public int bossHealth;
-
-    public Vector3 startPosition;
-    public Vector3 endPosition;
-    public float durationTime;
-    public bool startWalk;
-    public bool startDance;
-
-
     public Transform visual;
 
     public Sequence sequence { get; private set; }
@@ -29,75 +20,37 @@ public class Victim : MonoBehaviour
     private Vector3 deviation;
     private Vector3 moveDirection = Vector3.forward;
     private WaitForSeconds pointDelay;
-    public float speed = .1f;
-    [SerializeField] private float maxDragDistance = 40f;
-    [SerializeField] private float MaxRadius;
-    [SerializeField] private float MinRadius;
-    public float movementSmoothing;
-    [SerializeField] private float rotationSmoothing;
+    [HideInInspector]
+    public float speed = .01f;
+    private float maxDragDistance = 40f;
+    private float MaxRadius = 5;
+    private float MinRadius = -5;
+    private float movementSmoothing = 150;
+    private float rotationSmoothing = 150;
 
     public MeshCollider meshCollider;
-    private Vector3 initaiPos;
+    private Vector3 initialPos;
 
     public bool isDied { get; set; }
 
+    [Header("Dino Data")]
+    public String dinoName;
+    public int dinoId;
     public int health = 1;
+    public bool isSelected { get; set; }
     private void Start()
     {
-        initaiPos = this.transform.position;
+        initialPos = this.transform.position;
         StartCoroutine(GeneratePointRoutine());
-
-        if (startWalk)
-            StartMove();
-        else
-        {
-            if (startDance)
-                victimAnim.SetBool("StartDance", true);
-        }
-
-        if (victimType == VictimType.Boss)
-        {
-            Score.SharedManager().SetScore(bossHealth);
-            imgFill.maxValue = bossHealth;
-            imgFill.value = bossHealth;
-        }
         imgFill.maxValue = health;
         imgFill.value = health;
-    }
-    #region PerfectSnipe
-    private void StartMove()
-    {
-        victimAnim.SetBool("StartWalk", true);
-        sequence = DOTween.Sequence();
-        sequence.Append(transform.DOLocalMove(endPosition, durationTime))
-            .Append(transform.DOLocalRotateQuaternion(Quaternion.Euler(0, 180, 0), .2f))
-            .Append(transform.DOLocalMove(startPosition, durationTime)).SetLoops(-1);
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.collider.CompareTag("Slayer"))
-        {
-            if (!isDied)
-            {
-                isDied = true;
-                this.transform.GetChild(0).GetChild(0).GetComponent<Renderer>().material.color = Color.gray;
-                if (this.GetComponent<Rigidbody>() == null)
-                    this.gameObject.AddComponent<Rigidbody>();
-                this.GetComponent<Rigidbody>().AddForce(collision.transform.forward * 10);
-                victimAnim.enabled = false;
-                Score.SharedManager().AddScore(1);
-                //Destroy(collision.gameObject);
-            }
-        }
     }
 
     public void UpdateHealthBar()
     {
-        health -= 1;
+        health -= 5;
         imgFill.value = health;
     }
-    #endregion
 
     private void Update()
     {
@@ -118,20 +71,23 @@ public class Victim : MonoBehaviour
         //playerRigidbody.MovePosition(playerRigidbody.position + (deviation * 2f));
     }
 
-    //private void OnDrawGizmosSelected()
-    //{
-    //    Gizmos.DrawSphere(transform.position, MaxRadius);
-    //}
 
     public void VictimDie()
     {
         if (health <= 0)
         {
             this.gameObject.tag = "Untagged";
-            Score.SharedManager().AddScore(1);
             victimAnim.SetBool("Died", true);
+            victimAnim.SetTrigger("isDied");
             meshCollider.enabled = false;
-            playerCanvas.SetActive(false);
+            if (AppDelegate.SharedManager().selectedDinoId == dinoId.ToString() && isSelected)
+                Score.SharedManager().AddScore(1);
+            canvas.SetActive(false);
+            Destroy(this.gameObject, 2.0f);
+        }
+        else
+        {
+            isDied = false;
         }
 
     }
@@ -148,11 +104,10 @@ public class Victim : MonoBehaviour
     public Vector3 GetRandomPoint()
     {
         //Vector3 randomPoint = (Vector3)UnityEngine.Random.insideUnitCircle * UnityEngine.Random.Range(MinRadius, MaxRadius);
-        Vector3 randomPoint = new Vector3(initaiPos.x + UnityEngine.Random.Range(MinRadius, MaxRadius),
-            initaiPos.y + UnityEngine.Random.Range(MinRadius, MaxRadius),
-            initaiPos.z + UnityEngine.Random.Range(MinRadius, MaxRadius));
+        Vector3 randomPoint = new Vector3(initialPos.x + UnityEngine.Random.Range(MinRadius, MaxRadius),
+            initialPos.y + UnityEngine.Random.Range(MinRadius, MaxRadius),
+            initialPos.z + UnityEngine.Random.Range(MinRadius, MaxRadius));
 
         return randomPoint;
     }
-
 }

@@ -24,6 +24,7 @@ public class Score
     public void AddScore(int value)
     {
         score += value;
+        PanelGame.Instance.UpdateGamePanel();
         GameManager.Instance.CheckLevelComplete();
     }
     public void ResetScore() => score = 0;

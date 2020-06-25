@@ -115,8 +115,6 @@ public class WeaponController : MonoBehaviour
             if (hit.collider.CompareTag("Victim"))
             {
                 hit.transform.GetComponentInParent<Victim>().isDied = true;
-                hit.transform.GetComponentInParent<Victim>().UpdateHealthBar();
-
                 SpawnBullet();
                 int val = UnityEngine.Random.Range(0, 100);
                 bulletType = val % 2 == 0 ? BulletType.Normal : BulletType.WithCamera;
@@ -156,12 +154,13 @@ public class WeaponController : MonoBehaviour
 
     private void CompleteDone()
     {
-        Instantiate(FxManager.Instance.bulletImpactFX, hit.point, Quaternion.LookRotation(hit.normal));
+        //Instantiate(FxManager.Instance.bulletImpactFX, hit.point, Quaternion.LookRotation(hit.normal));
         Destroy(newBullet);
         UiManager.Instance.ShowPopUptext();
         switch (shootType)
         {
             case ShootType.Victim:
+                hit.transform.GetComponentInParent<Victim>().UpdateHealthBar();
                 hit.transform.GetComponentInParent<Victim>().VictimDie();
                 //hit.transform.gameObject.tag = "Untagged";
                 //hit.transform.GetComponent<MeshCollider>().enabled = false;
