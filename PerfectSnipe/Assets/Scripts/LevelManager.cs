@@ -40,6 +40,9 @@ public class LevelManager : MonoBehaviour
     {
         allDino = new List<GameObject>();
         Level level = GetLevelInfo(AppDelegate.SharedManager().levelCounter);
+
+        AppDelegate.SharedManager().numOfBullet = level.numberOfBullet;
+
         GameObject selectedDino = null;
         for (int i = 0; i < allDinoPrefab.Count; i++)
         {

@@ -20,7 +20,7 @@ public class CameraMotor : MonoBehaviour
     private void Update()
     {
 
-        if (isEnable == false)
+        if (isEnable == false || AppDelegate.SharedManager().numOfBullet <= 0)
             return;
 
         if (Input.GetMouseButtonDown(0))

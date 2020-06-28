@@ -53,7 +53,7 @@ public class WeaponController : MonoBehaviour
     {
 
         if (mainCamera.GetComponent<CameraMotor>().isEnable == false) return;
-        if (GameManager.Instance.isLevelComplete)
+        if (GameManager.Instance.isLevelComplete || AppDelegate.SharedManager().numOfBullet <= 0)
             return;
         InputHandler();
     }
@@ -135,12 +135,14 @@ public class WeaponController : MonoBehaviour
             {
                 Instantiate(FxManager.Instance.bulletImpactFXDefault, hit.point, Quaternion.LookRotation(hit.normal));
                 //shoot = false;
+                CheckNumOfBullet();
                 ScopeOut();
             }
         }
         else
         {
             //shoot = false;
+            CheckNumOfBullet();
             ScopeOut();
         }
     }
@@ -190,6 +192,18 @@ public class WeaponController : MonoBehaviour
             default:
                 Time.timeScale = 1.0f;
                 break;
+        }
+
+        CheckNumOfBullet();
+    }
+
+    private void CheckNumOfBullet()
+    {
+        AppDelegate.SharedManager().numOfBullet--;
+        PanelGame.Instance.UpDateNumOfBullet();
+        if (AppDelegate.SharedManager().numOfBullet <= 0)
+        {
+            UiManager.Instance.LoadLevelFailed();
         }
     }
 

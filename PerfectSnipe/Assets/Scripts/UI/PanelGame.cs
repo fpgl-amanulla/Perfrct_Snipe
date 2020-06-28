@@ -10,7 +10,9 @@ public class PanelGame : MonoBehaviour
     public TextMeshProUGUI txtObjective;
 
     public TextMeshProUGUI txtCompletedObjectives;
+    public TextMeshProUGUI txtNumOfBullet;
 
+    Level level;
     private void Awake()
     {
         if (Instance == null)
@@ -20,14 +22,19 @@ public class PanelGame : MonoBehaviour
     public void IniatializePanel()
     {
         AppDelegate appDelegate = AppDelegate.SharedManager();
-        Level level = LevelManager.Instance.GetLevelInfo(appDelegate.levelCounter);
+        level = LevelManager.Instance.GetLevelInfo(appDelegate.levelCounter);
         txtObjective.text = "Find " + level.totalVictim + "  " + appDelegate.selectedDinoName + " Dino and tranquilize them";
         UpdateGamePanel();
+        UpDateNumOfBullet();
     }
 
     public void UpdateGamePanel()
     {
         txtCompletedObjectives.text = "Objective Completed: " + Score.SharedManager().GetCurrentScore().ToString();
+    }
+    public void UpDateNumOfBullet()
+    {
+        txtNumOfBullet.text = AppDelegate.SharedManager().numOfBullet.ToString();
     }
 }
 

@@ -10,6 +10,7 @@ public class AppDelegate
     public int levelCounter = 0;
     public int tempLevelCounter = 0;
 
+    public int numOfBullet{ get; set; }
     public string selectedDinoId { get; set; }
     public string selectedDinoName { get; set; }
 

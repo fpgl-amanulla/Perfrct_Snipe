@@ -10,6 +10,7 @@ public class UiManager : MonoBehaviour
     public Camera uiCamera;
     public GameObject tapToAim;
     public GameObject levelCompletePrefab;
+    public GameObject levelFailedPrefab;
     public GameObject mainMenuPrefab;
     public GameObject popUpText;
     public TextMeshProUGUI txtLevelNo;
@@ -34,6 +35,11 @@ public class UiManager : MonoBehaviour
     {
         Instantiate(levelCompletePrefab, this.transform);
         txtLevelNo.gameObject.SetActive(false);
+    }
+
+    public void LoadLevelFailed()
+    {
+        Instantiate(levelFailedPrefab, this.transform);
     }
 
     internal void LoadMainPanel()
