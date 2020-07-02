@@ -1,0 +1,97 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8902486684891525604
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8902486684891688388}
+  - component: {fileID: 8902486684884443942}
+  - component: {fileID: 8902486684891525607}
+  m_Layer: 0
+  m_Name: BlobLightProjector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8902486684891688388
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8902486684891525604}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -13, y: -10, z: 140}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!119 &8902486684884443942
+Projector:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8902486684891525604}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_NearClipPlane: 10.9
+  m_FarClipPlane: 339.7
+  m_FieldOfView: 82.5
+  m_AspectRatio: 1.2
+  m_Orthographic: 0
+  m_OrthographicSize: 2
+  m_Material: {fileID: 2100000, guid: 17a7d121400a87047bced2b5373d43cc, type: 2}
+  m_IgnoreLayers:
+    serializedVersion: 2
+    m_Bits: 0
+--- !u!114 &8902486684891525607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8902486684891525604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8edec3e98decdde439f145e5ac0fc5ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fps: 30
+  frames:
+  - {fileID: 2800000, guid: 9be384c6219b68249b409ad1c4e4eafe, type: 3}
+  - {fileID: 2800000, guid: b4a177d7648c4c84daceabbb26551d41, type: 3}
+  - {fileID: 2800000, guid: 5411a2ff0f0b3c241970c07b29badf14, type: 3}
+  - {fileID: 2800000, guid: f4bfa51479fbd434d9d552edb93eff43, type: 3}
+  - {fileID: 2800000, guid: 4222a2d8ffe419a44b295583c39ecd0b, type: 3}
+  - {fileID: 2800000, guid: 3a3ebc4a140168541b560cfbcd7d2ef6, type: 3}
+  - {fileID: 2800000, guid: 8f863823ec2c66541b94eded7f5f4386, type: 3}
+  - {fileID: 2800000, guid: 128e19f2cd4056443a7d40eb4a79dfa1, type: 3}
+  - {fileID: 2800000, guid: cfa832a48ba462b40aa879823ff8aaeb, type: 3}
+  - {fileID: 2800000, guid: 9c2700f38008d4b4ba693f95b4bd6e2c, type: 3}
+  - {fileID: 2800000, guid: ad023c8a55376ea4093b75334aeafb50, type: 3}
+  - {fileID: 2800000, guid: 862b0cafd4d52494a97d0b772d394ba7, type: 3}
+  - {fileID: 2800000, guid: daf30f2c720ad44448a1a02eab0da206, type: 3}
+  - {fileID: 2800000, guid: a28ee933ce5d6404591b4db7564412a1, type: 3}
+  - {fileID: 2800000, guid: 90951955094db02499efe91ddc1d1aa6, type: 3}
+  - {fileID: 2800000, guid: dfc57847e9c56f144afeb031b324e998, type: 3}
+  - {fileID: 2800000, guid: 9be384c6219b68249b409ad1c4e4eafe, type: 3}
+  - {fileID: 2800000, guid: b4a177d7648c4c84daceabbb26551d41, type: 3}
+  - {fileID: 2800000, guid: 5411a2ff0f0b3c241970c07b29badf14, type: 3}
+  - {fileID: 2800000, guid: f4bfa51479fbd434d9d552edb93eff43, type: 3}
+  - {fileID: 2800000, guid: 4222a2d8ffe419a44b295583c39ecd0b, type: 3}
+  - {fileID: 2800000, guid: 3a3ebc4a140168541b560cfbcd7d2ef6, type: 3}
+  - {fileID: 2800000, guid: 8f863823ec2c66541b94eded7f5f4386, type: 3}
+  - {fileID: 2800000, guid: 128e19f2cd4056443a7d40eb4a79dfa1, type: 3}
+  - {fileID: 2800000, guid: cfa832a48ba462b40aa879823ff8aaeb, type: 3}
+  - {fileID: 2800000, guid: 9c2700f38008d4b4ba693f95b4bd6e2c, type: 3}
+  - {fileID: 2800000, guid: ad023c8a55376ea4093b75334aeafb50, type: 3}
+  - {fileID: 2800000, guid: 862b0cafd4d52494a97d0b772d394ba7, type: 3}
+  - {fileID: 2800000, guid: daf30f2c720ad44448a1a02eab0da206, type: 3}
+  - {fileID: 2800000, guid: a28ee933ce5d6404591b4db7564412a1, type: 3}

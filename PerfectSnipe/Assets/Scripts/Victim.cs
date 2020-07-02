@@ -80,6 +80,7 @@ public class Victim : MonoBehaviour
             victimAnim.SetBool("Died", true);
             victimAnim.SetTrigger("isDied");
             meshCollider.enabled = false;
+            transform.DORotateQuaternion(Quaternion.Euler(0, 0, 180), 1f);
             if (AppDelegate.SharedManager().selectedDinoId == dinoId.ToString() && isSelected)
                 Score.SharedManager().AddScore(1);
             canvas.SetActive(false);

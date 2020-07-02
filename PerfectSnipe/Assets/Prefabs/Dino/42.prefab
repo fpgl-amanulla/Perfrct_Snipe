@@ -1832,7 +1832,8 @@ MonoBehaviour:
   visual: {fileID: 6404779914923531680}
   speed: 0.1
   meshCollider: {fileID: 592577441043171662}
-  dinoName: Albertosaurus
+  dinoName: Eocarcharia
+  dinoId: 0
   health: 1
 --- !u!1 &9068642664856157047
 GameObject:
