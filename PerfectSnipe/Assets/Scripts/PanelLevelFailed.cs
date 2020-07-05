@@ -19,6 +19,7 @@ public class PanelLevelFailed : MonoBehaviour
         LevelManager.Instance.LoadLevel();
         Score.SharedManager().ResetScore();
         PanelGame.Instance.IniatializePanel();
+        PanelBulletManager.Instance.InitializeBullletBar();
         Destroy(gameObject);
     }
 

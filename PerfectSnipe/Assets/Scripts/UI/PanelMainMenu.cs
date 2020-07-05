@@ -28,6 +28,7 @@ public class PanelMainMenu : MonoBehaviour
         Score.SharedManager().ResetScore();
         //levelManager.LoadLevel(AppDelegate.SharedManager().levelCounter);
         LevelManager.Instance.LoadLevel();
+        PanelBulletManager.Instance.InitializeBullletBar();
         UiManager.Instance.tapToAim.SetActive(true);
         UiManager.Instance.InitGamePanel();
         PanelGame.Instance.IniatializePanel();

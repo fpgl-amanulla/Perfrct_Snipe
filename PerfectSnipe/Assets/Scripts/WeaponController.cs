@@ -208,6 +208,7 @@ public class WeaponController : MonoBehaviour
     private void CheckNumOfBullet()
     {
         AppDelegate.SharedManager().numOfBullet--;
+        PanelBulletManager.Instance.InitializeBullletBar();
         PanelGame.Instance.UpDateNumOfBullet();
         if (AppDelegate.SharedManager().numOfBullet <= 0 && !GameManager.Instance.isLevelComplete)
         {
