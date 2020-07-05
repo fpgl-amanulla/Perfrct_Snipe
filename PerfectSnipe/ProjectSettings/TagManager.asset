@@ -13,6 +13,8 @@ TagManager:
   - Missile
   - Food
   - Fish
+  - NPC
+  - Wall
   layers:
   - Default
   - TransparentFX
@@ -24,7 +26,7 @@ TagManager:
   - 
   - Weapon
   - Bullet
-  - Slider
+  - Victim
   - 
   - 
   - 
@@ -44,7 +46,7 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - NPC
   - 
   m_SortingLayers:
   - name: Default

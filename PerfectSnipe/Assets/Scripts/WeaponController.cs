@@ -38,6 +38,8 @@ public class WeaponController : MonoBehaviour
     private ShootType shootType;
     private BulletType bulletType;
 
+    public LayerMask layerMask;
+
     Sequence sequence;
     public int score { get; set; }
 
@@ -110,8 +112,14 @@ public class WeaponController : MonoBehaviour
         refreshDelta = 0;
         bulletType = BulletType.Normal;
         SoundManager.Instance.PlayShootSound();
-        if (Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out hit, 100f))
+        if (Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out hit, 100f, layerMask))
         {
+            sequence = DOTween.Sequence();
+            Vector3 currentPos = imgScope.GetComponent<RectTransform>().position;
+            Vector3 desPos = new Vector3(currentPos.x - 100f, currentPos.y - 250f, currentPos.z);
+            sequence.Append(imgScope.GetComponent<RectTransform>().DOMove(desPos, .05f)).
+                Append(imgScope.GetComponent<RectTransform>().transform.DOMove(currentPos, .05f));
+
             if (hit.collider.CompareTag("Victim"))
             {
                 hit.transform.GetComponentInParent<Victim>().isDied = true;
@@ -201,7 +209,7 @@ public class WeaponController : MonoBehaviour
     {
         AppDelegate.SharedManager().numOfBullet--;
         PanelGame.Instance.UpDateNumOfBullet();
-        if (AppDelegate.SharedManager().numOfBullet <= 0)
+        if (AppDelegate.SharedManager().numOfBullet <= 0 && !GameManager.Instance.isLevelComplete)
         {
             UiManager.Instance.LoadLevelFailed();
         }
