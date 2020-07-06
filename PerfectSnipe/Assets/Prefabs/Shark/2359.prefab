@@ -72,7 +72,7 @@ MonoBehaviour:
   visual: {fileID: 8889306053420822813}
   speed: 0.1
   meshCollider: {fileID: 4478719932153534976}
-  dinoName: Eocarcharia
+  dinoName: Sarcosuchus
   dinoId: 0
   health: 2
 --- !u!64 &4478719932153534976

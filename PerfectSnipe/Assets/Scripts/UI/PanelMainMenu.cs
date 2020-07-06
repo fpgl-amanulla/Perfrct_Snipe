@@ -32,6 +32,7 @@ public class PanelMainMenu : MonoBehaviour
         UiManager.Instance.tapToAim.SetActive(true);
         UiManager.Instance.InitGamePanel();
         PanelGame.Instance.IniatializePanel();
+        PanelObjective.Instance.LoadPanelObjective();
         Destroy(this.gameObject);
     }
 

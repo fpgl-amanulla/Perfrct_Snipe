@@ -55,7 +55,7 @@ public class WeaponController : MonoBehaviour
     {
 
         if (mainCamera.GetComponent<CameraMotor>().isEnable == false) return;
-        if (GameManager.Instance.isLevelComplete || AppDelegate.SharedManager().numOfBullet <= 0)
+        if (!GameManager.Instance.isGameStarted || GameManager.Instance.isLevelComplete || AppDelegate.SharedManager().numOfBullet <= 0)
             return;
         InputHandler();
     }

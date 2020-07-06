@@ -23,7 +23,7 @@ public class PanelGame : MonoBehaviour
     {
         AppDelegate appDelegate = AppDelegate.SharedManager();
         level = LevelManager.Instance.GetLevelInfo(appDelegate.levelCounter);
-        txtObjective.text = "Find " + level.totalVictim + "  " + appDelegate.selectedDinoName + " Dino and tranquilize them";
+        txtObjective.text = "Find " + level.totalVictim + "  " + appDelegate.selectedDinoName + " shark and tranquilize them";
         UpdateGamePanel();
         UpDateNumOfBullet();
     }

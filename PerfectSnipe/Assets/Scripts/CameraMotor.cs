@@ -20,7 +20,7 @@ public class CameraMotor : MonoBehaviour
     private void Update()
     {
 
-        if (isEnable == false || AppDelegate.SharedManager().numOfBullet <= 0)
+        if (!GameManager.Instance.isGameStarted || isEnable == false || AppDelegate.SharedManager().numOfBullet <= 0)
             return;
 
         if (Input.GetMouseButtonDown(0))

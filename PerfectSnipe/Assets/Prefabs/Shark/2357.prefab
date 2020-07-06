@@ -452,7 +452,7 @@ MonoBehaviour:
   visual: {fileID: 5406468785789023283}
   speed: 0.1
   meshCollider: {fileID: 1044015400983502636}
-  dinoName: Eocarcharia
+  dinoName: Sperm Whale
   dinoId: 0
   health: 2
 --- !u!1 &5059507369937401048

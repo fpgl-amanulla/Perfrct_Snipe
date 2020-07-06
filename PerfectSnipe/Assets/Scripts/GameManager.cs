@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public GameObject weaponHolder;
     public GameObject mainCamera;
     public bool isLevelComplete = false;
+    public bool isGameStarted = false;
 
     private AppDelegate appDelegate;
 
@@ -46,6 +47,7 @@ public class GameManager : MonoBehaviour
 
     IEnumerator WaitToLoadLevelComplete()
     {
+        GameManager.Instance.isGameStarted = false;
         yield return new WaitForSeconds(2.0f);
         UiManager.Instance.LoadLevelComplete();
         LevelManager.Instance.ResetLevel();

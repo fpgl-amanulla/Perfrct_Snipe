@@ -302,7 +302,7 @@ MonoBehaviour:
   visual: {fileID: 3575658734199871721}
   speed: 0.1
   meshCollider: {fileID: 1955765200892688928}
-  dinoName: Brachiosaurus
+  dinoName: Pacific Sleeper
   dinoId: 0
   health: 2
 --- !u!64 &1955765200892688928

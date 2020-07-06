@@ -72,7 +72,7 @@ MonoBehaviour:
   visual: {fileID: 7529488663862098751}
   speed: 0.1
   meshCollider: {fileID: 3243905396784304186}
-  dinoName: Placerias
+  dinoName: Tiger Dolichorhynchops
   dinoId: 0
   health: 2
 --- !u!64 &3243905396784304186

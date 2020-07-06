@@ -10,7 +10,7 @@ public class Level
     public int totalVictim;
     public int rewardAmount;
     public int numberOfBullet;
-    public int dinoId;
+    public int victimId;
     public VictimType victimType;
 }
 
@@ -34,7 +34,7 @@ public class LevelManager : MonoBehaviour
 
     private void Start()
     {
-        PanelGame.Instance.IniatializePanel();
+        
     }
 
     public void LoadLevel()
@@ -47,7 +47,7 @@ public class LevelManager : MonoBehaviour
         GameObject selectedDino = null;
         for (int i = 0; i < allDinoPrefab.Count; i++)
         {
-            if (allDinoPrefab[i].name == level.dinoId.ToString())
+            if (allDinoPrefab[i].name == level.victimId.ToString())
             {
                 selectedDino = allDinoPrefab[i];
                 break;

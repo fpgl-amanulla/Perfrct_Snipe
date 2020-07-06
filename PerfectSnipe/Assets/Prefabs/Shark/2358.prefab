@@ -452,7 +452,7 @@ MonoBehaviour:
   visual: {fileID: 5572203411944579623}
   speed: 0.1
   meshCollider: {fileID: 589625980141996350}
-  dinoName: Brachiosaurus
+  dinoName: Manta Ray
   dinoId: 0
   health: 2
 --- !u!1 &4640159969554473553
