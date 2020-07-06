@@ -10,6 +10,9 @@ public class PanelBulletManager : MonoBehaviour
 
     public List<Image> imgBullets = new List<Image>();
 
+    public Sprite activeBullet;
+    public Sprite deactiveBullet;
+
     private void Start()
     {
         if (Instance == null) Instance = this;
@@ -26,9 +29,9 @@ public class PanelBulletManager : MonoBehaviour
         for (int i = 0; i < imgBullets.Count; i++)
         {
             if (i < imgBullets.Count - numOfbullet)
-                imgBullets[i].color = Color.black;
+                imgBullets[i].sprite = deactiveBullet;
             else
-                imgBullets[i].color = Color.white;
+                imgBullets[i].sprite = activeBullet;
         }
     }
     public void ResetBulletBar()
